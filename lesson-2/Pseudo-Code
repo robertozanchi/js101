@@ -1,0 +1,56 @@
+1. A function that returns the sum of two numbers
+
+  START
+
+  GET the first number from user
+  SET firstNumber = first number received
+
+  GET the second number from user
+  SET secondNumber = second number received
+
+  SET total = sum of first and second number
+  PRINT total
+
+  END
+
+
+2. A function that takes an array of strings, and returns a string that is all those strings concatenated together
+
+  # Given an array of strings called "words"
+
+  START
+  
+  SET iterator = 1
+  SET concatenatedString = empty string
+
+  WHILE iterator <= length of numbers
+    SET currentstring = value within words collection at space "iterator"
+    concatenatedString = concatenatedString + currentstring
+    iterator = iterator + 1
+  
+  PRINT concatenatedString
+  
+  END
+
+
+3. A function that takes an array of integers, and returns a new array with every other element
+
+  # Given an array of integers called "allNumbers"
+
+  START
+
+  SET iterator = 1
+  SET everyOther = empty array
+
+  GET even or odd position for first element to include in everyOther from user
+
+  WHILE iterator <= length of allNumbers
+    SET currentNumber = value within numbers collection at space "iterator"
+    IF currentNumber matches user's even/odd position preference
+      add currentNumber to everyOther array
+    ELSE
+      skip to the next iteration
+  
+  PRINT everyOther
+
+  END
