@@ -1,0 +1,15 @@
+{
+  "en": {
+    "welcome": "Welcome to Calculator!",
+    "askFirst": "What's the first number?",
+    "askSecond": "What's the second number?",
+    "invalidNumber": "Hmm... that doesn't look like a valid number.",
+    "askOperation": "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
+    "selectOperation": "Must choose 1, 2, 3 or 4",
+    "infinityWarning": "You have divided an integer by zero!",
+    "askNewOperation": "Would you like to perform another operation? (y/n)",
+    "displayResult": "The result is: ",
+    "yes": "y",
+    "thanks": "Thanks for using Calculator!"
+  }
+}
