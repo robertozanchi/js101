@@ -9,7 +9,8 @@
     "infinityWarning": "You have divided an integer by zero!",
     "askNewOperation": "Would you like to perform another operation? (y/n)",
     "displayResult": "The result is: ",
-    "yes": "y",
+    "validInputs": ["y", "n"],
+    "invalidInput": "Invalid input. Please enter 'y' for yes or 'n' for no.",
     "thanks": "Thanks for using Calculator!"
   }
 }

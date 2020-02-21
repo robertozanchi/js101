@@ -54,25 +54,24 @@ function messages(message, lang = "en") {
   return MESSAGES[lang][message];
 }
 
-// welcome to calculator
+function isValidInput(input) {
+  return MESSAGES[LANGUAGE]["validInputs"].includes(input);
+}
+
 prompt("welcome");
 
 while (true) {
-  // ask for two numbers
   let number1 = askForNumber("askFirst");
   let number2 = askForNumber("askSecond");
 
-  // ask for operation
   prompt("askOperation");
   let operation = readline.question();
 
-  // check that operation is valid
   while (!isValidOperation(operation)) {
     prompt("selectOperation");
     operation = readline.question();
   }
 
-  // check for division by zero and display output
   if (isDivisionByZero(number2, operation)) {
     prompt("infinityWarning");
   } else {
@@ -81,10 +80,15 @@ while (true) {
     console.log(output.toString());
   }
 
-  // ask about new operation
   prompt("askNewOperation");
   let answer = readline.question();
-  if (answer[0].toLowerCase() !== messages("yes", LANGUAGE)) {
+
+  while (!isValidInput(answer)) {
+    prompt("invalidInput");
+    answer = readline.question();
+  }
+
+  if (answer === "n") {
     prompt("thanks");
     break;
   }
