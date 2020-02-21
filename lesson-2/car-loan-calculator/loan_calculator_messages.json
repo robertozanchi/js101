@@ -1,7 +1,14 @@
 {
   "en": {
     "welcome": "Welcome to Car Loan Calculator!",
-    "askLoanAmount": "What is your desired loan in US$?",
-    "warningMinLoan": "The minimum loan is $1,000. Please enter $1,000 or more."
+    "askLoanAmount": "What is your loan amount in $?",
+    "askValidNumber": "Must enter a valid number",
+    "warningMinLoan": "The minimum loan is $1000. Please enter $1000 or more.",
+    "enteredLoan": "The loan amount you entered is",
+    "askInterestRate": "What is the Annual Percentage Rate (APR) on the loan?",
+    "warningMinRate": "The minimum APR must be 0.00 or greater. Try again.",
+    "askDuration": "What is the duration of the loan in months?",
+    "askValidMonths": "Must enter a valid number equal to or greater than 1.",
+    "USD": "$"
   }
 }

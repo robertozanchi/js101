@@ -1,45 +1,96 @@
-// consider whether you want to support no-interest loans or loans that aren't for an integer number of years.
-
-// START
-// GET loan amount
-// GET Annual Percentage Rate (APR) from user
-// GET loan duration as number of months (or years?) from user
-// SET monthly interest rate to APR / 12
-// SET calculate m, the monthly payment, using the formula
-// PRINT m
-// PRINT number of months
-
 const readline = require("readline-sync");
 const MESSAGES = require("./loan_calculator_messages.json");
 const LANGUAGE = "en";
 
 function messages(message, lang = "en") {
-  return MESSAGES[lang][message];
+  return MESSAGES[lang.toLowerCase()][message];
 }
 
 function prompt(key) {
-  let message = messages(key, LANGUAGE.toLowerCase()); // LANGUAGE.toLowerCase to deal with upper case argument e.g. "EN"
+  let message = messages(key, LANGUAGE);
   console.log(`=> ${message}`);
 }
 
-function askLoanAmount() {
-  prompt("askLoanAmount");
-  let amount = Number(readline.question());
-  // IF NOT A NUMBER ASK FOR A NUMBER
+function displayMoney(value, currency) {
+  console.log(`=> The selected loan amount is ${currency}${value}.`);
+}
 
-  // // optional: set minimum loan amount
-  // while (amount < 1000) {
-  //   prompt("warningMinLoan");
-  //   amount = readline.question();
-  // }
-  console.log(typeof amount);
+function displayInterest(rate) {
+  console.log(`=> The selected APR is ${rate}%.`);
+}
+
+function displayMonths(number) {
+  console.log(`=> The selected loan duration is ${number} months.`);
+}
+
+function invalidNumber(number) {
+  return number.trimStart() === "" || Number.isNaN(Number(number));
+}
+
+function askLoanAmount() {
+  let amount = readline.question();
+  while (invalidNumber(amount)) {
+    prompt("askValidNumber");
+    amount = readline.question();
+  }
+  while (amount < 1000) {
+    prompt("warningMinLoan");
+    amount = readline.question();
+  }
+  amount = Math.round(parseFloat(amount));
   return amount;
 }
 
-// welcome to cal loan calculator
+function askInterestRate() {
+  let rate = readline.question();
+  while (invalidNumber(rate)) {
+    prompt("askValidNumber");
+    rate = readline.question();
+  }
+  while (rate < 0) {
+    prompt("warningMinRate");
+    amount = readline.question();
+  }
+  rate = parseFloat(rate);
+  return rate;
+}
+
+function getLoanDuration() {
+  let months = readline.question();
+  while (invalidNumber(months)) {
+    prompt("askValidMonths");
+    months = readline.question();
+  }
+  while (months < 1) {
+    prompt("askValidMonths");
+    amount = readline.question();
+  }
+  months = parseInt(months);
+  return months;
+}
+
+function calculatePayment(amount, rate, duration) {
+  let payment = amount * (rate / (1 - Math.pow(1 + rate, -duration)));
+  return parseInt(payment);
+}
+
 prompt("welcome");
 
-// ask for loan amount
+prompt("askLoanAmount");
 let loanAmount = askLoanAmount();
+displayMoney(loanAmount, messages("USD"));
 
-//ask for interest rate
+prompt("askInterestRate");
+let interestRate = askInterestRate();
+displayInterest(interestRate);
+
+let monthlyRate = interestRate / 12;
+
+prompt("askDuration");
+let loanDuration = getLoanDuration();
+displayMonths(loanDuration);
+
+let monthlyPayment = calculatePayment(loanAmount, monthlyRate, loanDuration);
+console.log(
+  `The monthly payment for this loan is ${messages("USD")}${monthlyPayment}.`
+);
