@@ -88,7 +88,7 @@ while (true) {
     answer = readline.question();
   }
 
-  if (answer === "n") {
+  if (answer === MESSAGES[LANGUAGE]["no"]) {
     prompt("thanks");
     break;
   }
