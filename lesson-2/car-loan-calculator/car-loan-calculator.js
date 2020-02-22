@@ -65,13 +65,13 @@ function getLoanDuration() {
     prompt("askValidMonths");
     months = readline.question();
   }
-  months = parseInt(months);
+  months = parseInt(months, 10);
   return months;
 }
 
 function calculatePayment(amount, rate, duration) {
   let payment = amount * (rate / (1 - Math.pow(1 + rate, -duration)));
-  return parseInt(payment);
+  return parseInt(payment, 10);
 }
 
 prompt("welcome");
