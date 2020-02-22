@@ -49,7 +49,7 @@ function askInterestRate() {
   }
   while (rate < 0) {
     prompt("warningMinRate");
-    amount = readline.question();
+    rate = readline.question();
   }
   rate = parseFloat(rate);
   return rate;
@@ -63,7 +63,7 @@ function getLoanDuration() {
   }
   while (months < 1) {
     prompt("askValidMonths");
-    amount = readline.question();
+    months = readline.question();
   }
   months = parseInt(months);
   return months;
