@@ -33,8 +33,6 @@ function askInterestRate() {
     rate = readline.question();
   }
   rate = Number(rate) / 100;
-  //console.log(rate);
-  //console.log(typeof rate);
   return rate;
 }
 
@@ -48,12 +46,16 @@ function getLoanDuration() {
     prompt("askValidMonths");
     months = readline.question();
   }
-  //months = parseInt(months, 10);
   return Number(months);
 }
 
 function calculatePayment(amount, rate, duration) {
-  let payment = amount * (rate / (1 - Math.pow(1 + rate, -duration)));
+  let payment;
+  if (rate === 0) {
+    payment = amount / duration;
+  } else {
+    payment = amount * (rate / (1 - Math.pow(1 + rate, -duration)));
+  }
   return payment.toFixed(2);
 }
 
@@ -66,27 +68,12 @@ console.log(`=> The selected loan amount is $${loanAmount}.`);
 prompt("askInterestRate");
 prompt("interestRateExample");
 let annualRate = askInterestRate();
-console.log(`=> The selected APR is ${annualRate * 100}%.`);
+console.log(`=> The selected APR is ${(annualRate * 100).toFixed(2)}%.`);
 let monthlyRate = annualRate / 12;
-console.log(monthlyRate);
 
 prompt("askDuration");
 let loanDuration = getLoanDuration();
 console.log(`=> The selected loan duration is ${loanDuration} months.`);
 
-//let monthlyPayment = calculatePayment(loanAmount, monthlyRate, loanDuration);
-
-console.log(`Loan amount: ${loanAmount} (type ${typeof loanAmount})`);
-console.log(`Monthly rate: ${monthlyRate} (type ${typeof monthlyRate})`);
-console.log(
-  `Loan duration (months): ${loanDuration} (type ${typeof loanDuration})`
-);
-
-let monthlyPayment =
-  Number(loanAmount) *
-  (monthlyRate / (1 - Math.pow(1 + monthlyRate, -Number(loanDuration))));
-
-monthlyPayment = monthlyPayment.toFixed(2);
-console.log(monthlyPayment);
-
+let monthlyPayment = calculatePayment(loanAmount, monthlyRate, loanDuration);
 console.log(`The monthly payment is $${monthlyPayment}.`);
