@@ -1,5 +1,4 @@
 const readline = require("readline-sync");
-//const VALID_CHOICES = ["rock", "paper", "scissors", "lizard", "spock"];
 const VALID_CHOICES = ["1", "2", "3", "4", "5"];
 
 let playerGamesWon = 0;
