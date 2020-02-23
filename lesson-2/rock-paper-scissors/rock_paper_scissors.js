@@ -7,6 +7,10 @@ function prompt(message) {
   console.log(`=> ${message}`);
 }
 
+function matchWon() {
+  return playerGamesWon === 5 || computerGamesWon === 5;
+}
+
 function playerWins(choice, computerChoice) {
   return (
     (choice === "scissors" && computerChoice === "paper") ||
@@ -35,12 +39,16 @@ function displayWinner(choice, computerChoice) {
   }
 }
 
-function fiveGamesWon() {
-  return playerGamesWon === 5 || computerGamesWon === 5;
+function announceMatchWinner(playerGamesWon, computerGamesWon) {
+  if (playerGamesWon === 5) {
+    prompt("Congrats you won five games!");
+  } else if (computerGamesWon === 5) {
+    prompt("The computer won five games.");
+  }
 }
 
 while (true) {
-  while (!fiveGamesWon()) {
+  while (!matchWon()) {
     prompt(`Choose one: ${VALID_CHOICES.join(", ")}`);
     let choice = readline.question();
 
@@ -54,11 +62,7 @@ while (true) {
 
     displayWinner(choice, computerChoice);
 
-    if (playerGamesWon === 5) {
-      prompt("Congrats you won five games!");
-    } else if (computerGamesWon === 5) {
-      prompt("The computer won five games.");
-    }
+    announceMatchWinner(playerGamesWon, computerGamesWon);
   }
 
   prompt("Do you want to play again (y/n)?");
