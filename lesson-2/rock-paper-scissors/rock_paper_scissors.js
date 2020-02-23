@@ -21,35 +21,6 @@ function displayWinner(choice, computerChoice) {
   }
 }
 
-function displayWinner(choice, computerChoice) {
-  prompt(`You chose ${choice}, computer chose ${computerChoice}`);
-  if ((choice === 'scissors' && computerChoice === 'paper') ||
-    (choice === 'paper' && computerChoice === 'rock') ||
-    (choice === 'rock' && computerChoice === 'lizard') ||
-    (choice === 'lizard' && computerChoice === 'spock') ||
-    (choice === 'spock' && computerChoice === 'scissors') ||
-    (choice === 'scissors' && computerChoice === 'lizard') ||
-    (choice === 'lizard' && computerChoice === 'paper') ||
-    (choice === 'paper' && computerChoice === 'spock') ||
-    (choice === 'spock' && computerChoice === 'rock') ||
-    (choice === 'rock' && computerChoice === 'scissors')) {
-    prompt('You win!');
-  } else if ((choice === 'scissors' && choice === 'paper') ||
-    (computerChoice === 'paper' && choice === 'rock') ||
-    (computerChoice === 'rock' && choice === 'lizard') ||
-    (computerChoice === 'lizard' && choice === 'spock') ||
-    (computerChoice === 'spock' && choice === 'scissors') ||
-    (computerChoice === 'scissors' && choice === 'lizard') ||
-    (computerChoice === 'lizard' && choice === 'paper') ||
-    (computerChoice === 'paper' && choice === 'spock') ||
-    (computerChoice === 'spock' && choice === 'rock') ||
-    (computerChoice === 'rock' && choice === 'scissors')) {
-    prompt('Computer wins!');
-  } else {
-    prompt("It's a tie!");
-  }
-}
-
 while (true) {
   prompt(`Choose one: ${VALID_CHOICES.join(', ')}`);
   let choice = readline.question();
