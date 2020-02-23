@@ -1,7 +1,5 @@
 const readline = require("readline-sync");
-//const VALID_CHOICES = ["rock", "paper", "scissors", "lizard", "spock"];
-const VALID_CHOICES = ["1", "2", "3", "4", "5"];
-
+const VALID_CHOICES = ["rock", "paper", "scissors", "lizard", "spock"];
 let playerGamesWon = 0;
 let computerGamesWon = 0;
 
@@ -11,27 +9,6 @@ function prompt(message) {
 
 function matchWon() {
   return playerGamesWon === 5 || computerGamesWon === 5;
-}
-
-function convertChoice(selection) {
-  let output;
-  switch (selection) {
-    case "1":
-      output = "rock";
-      break;
-    case "2":
-      output = "paper";
-      break;
-    case "3":
-      output = "scissors";
-      break;
-    case "4":
-      output = "lizard";
-      break;
-    case "5":
-      output = "spock";
-  }
-  return output;
 }
 
 function playerWins(choice, computerChoice) {
@@ -73,9 +50,6 @@ function announceMatchWinner(playerGamesWon, computerGamesWon) {
 while (true) {
   while (!matchWon()) {
     prompt(`Choose one: ${VALID_CHOICES.join(", ")}`);
-    prompt(
-      "1 for rock, 2 for paper, 3 for scissors, 4 for lizard, 5 for Spock"
-    );
     let choice = readline.question();
 
     while (!VALID_CHOICES.includes(choice)) {
@@ -86,15 +60,10 @@ while (true) {
     let randomIndex = Math.floor(Math.random() * VALID_CHOICES.length);
     let computerChoice = VALID_CHOICES[randomIndex];
 
-    choice = convertChoice(choice);
-    computerChoice = convertChoice(computerChoice);
-
     displayWinner(choice, computerChoice);
+
     announceMatchWinner(playerGamesWon, computerGamesWon);
   }
-
-  playerGamesWon = 0;
-  computerGamesWon = 0;
 
   prompt("Do you want to play again (y/n)?");
   let answer = readline.question().toLowerCase();
