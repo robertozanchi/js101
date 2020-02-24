@@ -1,33 +1,33 @@
 const readline = require("readline-sync");
-const VALID_CHOICES = ["1", "2", "3", "4", "5"];
+const VALID_CHOICES = ["r", "p", "s", "l", "sp"];
 
-let playerGamesWon = 0;
-let computerGamesWon = 0;
+// let score = 0;
+// let computerScore = 0;
 
 function prompt(message) {
   console.log(`=> ${message}`);
 }
 
-function matchWon() {
-  return playerGamesWon === 5 || computerGamesWon === 5;
+function isMatchWon() {
+  return score === 5 || computerScore === 5;
 }
 
 function convertChoice(selection) {
   let output;
   switch (selection) {
-    case "1":
+    case "r":
       output = "rock";
       break;
-    case "2":
+    case "p":
       output = "paper";
       break;
-    case "3":
+    case "s":
       output = "scissors";
       break;
-    case "4":
+    case "l":
       output = "lizard";
       break;
-    case "5":
+    case "sp":
       output = "spock";
   }
   return output;
@@ -48,32 +48,40 @@ function playerWins(choice, computerChoice) {
   );
 }
 
-function displayWinner(choice, computerChoice) {
+function displayGameWinner(choice, computerChoice) {
   prompt(`You chose ${choice}, computer chose ${computerChoice}`);
   if (playerWins(choice, computerChoice)) {
-    playerGamesWon += 1;
-    prompt("You win!");
+    score += 1;
+    prompt("You win!\n");
   } else if (choice === computerChoice) {
-    prompt("It's a tie!");
+    prompt("It's a tie!\n");
   } else {
-    computerGamesWon += 1;
-    prompt("Computer wins!");
+    computerScore += 1;
+    prompt("Computer wins!\n");
   }
 }
 
-function announceMatchWinner(playerGamesWon, computerGamesWon) {
-  if (playerGamesWon === 5) {
+function announceMatchWinner(score, computerScore) {
+  if (score === 5) {
     prompt("Congrats you won five games!");
-  } else if (computerGamesWon === 5) {
+  } else if (computerScore === 5) {
     prompt("The computer won five games.");
   }
 }
 
 while (true) {
-  while (!matchWon()) {
+  let score = 0;
+  let computerScore = 0;
+
+  console.clear();
+  prompt("Welcome to Rock, Paper Scissors, Lizard, Spock!\n");
+  prompt("The first player to win 5 games wins the Match.\n");
+
+  while (!isMatchWon()) {
+    prompt(`Player score: ${score} - Computer score: ${computerScore}`);
     prompt(`Choose one: ${VALID_CHOICES.join(", ")}`);
     prompt(
-      "1 for rock, 2 for paper, 3 for scissors, 4 for lizard, 5 for Spock"
+      "r for rock, p for paper, s for scissors, l for lizard, sp for Spock"
     );
     let choice = readline.question();
 
@@ -88,12 +96,12 @@ while (true) {
     choice = convertChoice(choice);
     computerChoice = convertChoice(computerChoice);
 
-    displayWinner(choice, computerChoice);
-    announceMatchWinner(playerGamesWon, computerGamesWon);
+    displayGameWinner(choice, computerChoice);
+    announceMatchWinner(score, computerScore);
   }
 
-  playerGamesWon = 0;
-  computerGamesWon = 0;
+  score = 0;
+  computerScore = 0;
 
   prompt("Do you want to play again (y/n)?");
   let answer = readline.question().toLowerCase();
