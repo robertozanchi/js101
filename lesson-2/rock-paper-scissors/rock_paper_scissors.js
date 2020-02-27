@@ -1,14 +1,11 @@
 const readline = require("readline-sync");
 const VALID_CHOICES = ["r", "p", "s", "l", "sp"];
 
-// let score = 0;
-// let computerScore = 0;
-
 function prompt(message) {
   console.log(`=> ${message}`);
 }
 
-function isMatchWon() {
+function isMatchWon(score, computerScore) {
   return score === 5 || computerScore === 5;
 }
 
@@ -48,19 +45,6 @@ function playerWins(choice, computerChoice) {
   );
 }
 
-function displayGameWinner(choice, computerChoice) {
-  prompt(`You chose ${choice}, computer chose ${computerChoice}`);
-  if (playerWins(choice, computerChoice)) {
-    score += 1;
-    prompt("You win!\n");
-  } else if (choice === computerChoice) {
-    prompt("It's a tie!\n");
-  } else {
-    computerScore += 1;
-    prompt("Computer wins!\n");
-  }
-}
-
 function announceMatchWinner(score, computerScore) {
   if (score === 5) {
     prompt("Congrats you won five games!");
@@ -77,7 +61,7 @@ while (true) {
   prompt("Welcome to Rock, Paper Scissors, Lizard, Spock!\n");
   prompt("The first player to win 5 games wins the Match.\n");
 
-  while (!isMatchWon()) {
+  while (!isMatchWon(score, computerScore)) {
     prompt(`Player score: ${score} - Computer score: ${computerScore}`);
     prompt(`Choose one: ${VALID_CHOICES.join(", ")}`);
     prompt(
@@ -96,12 +80,19 @@ while (true) {
     choice = convertChoice(choice);
     computerChoice = convertChoice(computerChoice);
 
-    displayGameWinner(choice, computerChoice);
+    prompt(`You chose ${choice}, computer chose ${computerChoice}`);
+    if (playerWins(choice, computerChoice)) {
+      score += 1;
+      prompt("You win!\n");
+    } else if (choice === computerChoice) {
+      prompt("It's a tie!\n");
+    } else {
+      computerScore += 1;
+      prompt("Computer wins!\n");
+    }
+
     announceMatchWinner(score, computerScore);
   }
-
-  score = 0;
-  computerScore = 0;
 
   prompt("Do you want to play again (y/n)?");
   let answer = readline.question().toLowerCase();
