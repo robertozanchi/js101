@@ -45,7 +45,7 @@ function playerWins(choice, computerChoice) {
   );
 }
 
-function announceGameWinner(choice, computerChoice, score, computerScore) {
+function announceGameWinner(choice, computerChoice) {
   if (playerWins(choice, computerChoice)) {
     score += 1;
     prompt("You win!\n");
@@ -93,7 +93,7 @@ while (true) {
     computerChoice = convertChoice(computerChoice);
 
     prompt(`You chose ${choice}, computer chose ${computerChoice}`);
-    announceGameWinner(choice, computerChoice, score, computerScore);
+    announceGameWinner(choice, computerChoice);
 
     announceMatchWinner(score, computerScore);
   }
