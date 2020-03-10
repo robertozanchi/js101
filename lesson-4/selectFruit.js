@@ -5,13 +5,15 @@ let produce = {
   broccoli: "Vegetable"
 };
 
-let fruit = {};
+function selectFruit(produce) {
+  let fruit = {};
 
-for (let key in produce) {
-  if (produce[key] === "Fruit") {
-    fruit[key] = "Fruit";
+  for (let key in produce) {
+    if (produce[key] === "Fruit") {
+      fruit[key] = "Fruit";
+    }
   }
-}
 
-console.log(fruit);
-return fruit;
+  console.log(fruit);
+  return fruit;
+}
