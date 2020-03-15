@@ -12,3 +12,10 @@
 // LS solution:
 // The callback returns undefined each time, so map returns:
 // [ undefined, undefined, undefined ]
+
+// To verify:
+function test(num) {
+  num * num;
+}
+
+console.log(test(2));
