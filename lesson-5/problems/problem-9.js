@@ -7,7 +7,7 @@ let arr = [
 ];
 
 let arr2 = arr.map(element => {
-  if (typeof element[0] === Number) {
+  if (typeof element[0] === "number") {
     return element.slice().sort((a, b) => a - b);
   } else {
     return element.slice().sort();
