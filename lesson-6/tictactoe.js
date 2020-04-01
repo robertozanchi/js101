@@ -1,3 +1,9 @@
+const readline = require("readline-sync");
+
+function prompt(message) {
+  console.log(`=> ${message}`);
+}
+
 function displayBoard(board) {
   console.log("");
   console.log("     |     |");
@@ -13,3 +19,27 @@ function displayBoard(board) {
   console.log("     |     |");
   console.log("");
 }
+
+function initializeBoard() {
+  let board = {};
+
+  for (let square = 1; square <= 9; square++) {
+    board[String(square)] = " ";
+  }
+
+  return board;
+}
+
+function playerChoosesSquare(board) {
+  prompt("Choose a square (1-9):");
+  let square = readline.question();
+  board[square] = "X";
+}
+
+// At bottom of board
+
+let board = initializeBoard();
+displayBoard(board);
+
+playerChoosesSquare(board);
+displayBoard(board);
