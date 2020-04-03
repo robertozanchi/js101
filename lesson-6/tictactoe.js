@@ -31,8 +31,19 @@ function initializeBoard() {
 }
 
 function playerChoosesSquare(board) {
-  prompt("Choose a square (1-9):");
-  let square = readline.question();
+  let square;
+  let emptySquares = Object.keys(board).filter(key => board[key] === " ");
+
+  while (true) {
+    prompt("Choose a square (1-9):");
+    square = readline.question().trim();
+    if (emptySquares.includes(square)) {
+      break;
+    } else {
+      prompt("Sorry, that's not a valid choice.");
+    }
+  }
+
   board[square] = "X";
 }
 
