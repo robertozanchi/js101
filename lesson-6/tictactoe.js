@@ -1,4 +1,7 @@
 const readline = require("readline-sync");
+const INITIAL_MARKER = " ";
+const HUMAN_MARKER = "X";
+const COMPUTER_MARKER = "O";
 
 function prompt(message) {
   console.log(`=> ${message}`);
@@ -24,27 +27,35 @@ function initializeBoard() {
   let board = {};
 
   for (let square = 1; square <= 9; square++) {
-    board[String(square)] = " ";
+    board[String(square)] = INITIAL_MARKER;
   }
 
   return board;
 }
 
+function emptySquares(board) {
+  return Object.keys(board).filter(key => board[key] === INITIAL_MARKER);
+}
+
 function playerChoosesSquare(board) {
   let square;
-  let emptySquares = Object.keys(board).filter(key => board[key] === " ");
 
   while (true) {
-    prompt("Choose a square (1-9):");
+    prompt(`Choose a square (${emptySquares(board).join(", ")}):`);
     square = readline.question().trim();
-    if (emptySquares.includes(square)) {
-      break;
-    } else {
-      prompt("Sorry, that's not a valid choice.");
-    }
+    if (emptySquares(board).includes(square)) break;
+
+    prompt("Sorry, that's not a valid choice.");
   }
 
-  board[square] = "X";
+  board[square] = HUMAN_MARKER;
+}
+
+function computerChoosesSquare(board) {
+  let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
+
+  let square = emptySquares(board)[randomIndex];
+  board[square] = COMPUTER_MARKER;
 }
 
 // At bottom of board
@@ -53,4 +64,6 @@ let board = initializeBoard();
 displayBoard(board);
 
 playerChoosesSquare(board);
+computerChoosesSquare(board);
+
 displayBoard(board);
