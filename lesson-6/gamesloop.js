@@ -3,6 +3,7 @@ const readline = require("readline-sync");
 const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
+const GAMES_IN_MATCH = 5;
 
 function prompt(msg) {
   console.log(`=> ${msg}`);
