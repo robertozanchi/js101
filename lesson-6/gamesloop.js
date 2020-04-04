@@ -64,7 +64,6 @@ function playerChoosesSquare(board) {
   let square;
 
   while (true) {
-    //prompt(`Choose a square (${emptySquares(board).join(", ")}):`);
     prompt(`Choose a square (${joinOr(emptySquares(board))}):`);
     square = readline.question().trim();
     if (emptySquares(board).includes(square)) break;
@@ -123,27 +122,54 @@ function detectWinner(board) {
 }
 
 while (true) {
-  let board = initializeBoard();
+  let playerScore = 0;
+  let computerScore = 0;
 
   while (true) {
+    let board = initializeBoard();
+
+    while (true) {
+      displayBoard(board);
+
+      playerChoosesSquare(board);
+      if (someoneWon(board) || boardFull(board)) break;
+
+      computerChoosesSquare(board);
+      if (someoneWon(board) || boardFull(board)) break;
+    }
+
     displayBoard(board);
 
-    playerChoosesSquare(board);
-    if (someoneWon(board) || boardFull(board)) break;
+    if (someoneWon(board)) {
+      prompt(`${detectWinner(board)} won the game!`);
+    } else {
+      prompt("It's a tie!");
+    }
 
-    computerChoosesSquare(board);
-    if (someoneWon(board) || boardFull(board)) break;
+    if (detectWinner(board) === "Player") {
+      playerScore += 1;
+    } else if (detectWinner(board) === "Computer") {
+      computerScore += 1;
+    }
+
+    prompt(`Games won: Player ${playerScore} - ${computerScore} Computer`);
+
+    if (playerScore === GAMES_IN_MATCH) {
+      prompt(`Congratulations, Player. You won the match!`);
+      break;
+    }
+
+    if (computerScore === GAMES_IN_MATCH) {
+      prompt(`Computer won the match!`);
+      break;
+    }
+
+    prompt("Play another game?");
+    let answer = readline.question().toLowerCase()[0];
+    if (answer !== "y") break;
   }
 
-  displayBoard(board);
-
-  if (someoneWon(board)) {
-    prompt(`${detectWinner(board)} won!`);
-  } else {
-    prompt("It's a tie!");
-  }
-
-  prompt("Play again?");
+  prompt("Start a new match?");
   let answer = readline.question().toLowerCase()[0];
   if (answer !== "y") break;
 }
