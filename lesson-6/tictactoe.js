@@ -1,10 +1,12 @@
 const readline = require("readline-sync");
+
 const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
+//const GAMES_IN_MATCH = 5;
 
-function prompt(message) {
-  console.log(`=> ${message}`);
+function prompt(msg) {
+  console.log(`=> ${msg}`);
 }
 
 function displayBoard(board) {
@@ -38,14 +40,32 @@ function initializeBoard() {
 }
 
 function emptySquares(board) {
-  return Object.keys(board).filter(key => board[key] === INITIAL_MARKER);
+  return Object.keys(board).filter(key => board[key] === " ");
+}
+
+function joinOr(array, separator = ", ", conjunction = "or") {
+  let length = array.length;
+  if (length === 0) {
+    return "";
+  }
+  if (length === 1) {
+    return `${array[0]}`;
+  } else if (length === 2) {
+    return `${array[0]} ${conjunction} ${array[1]}`;
+  } else {
+    return (
+      array.slice(0, array.length - 1).join(separator) +
+      ` ${conjunction} ${array[array.length - 1]}`
+    );
+  }
 }
 
 function playerChoosesSquare(board) {
   let square;
 
   while (true) {
-    prompt(`Choose a square (${emptySquares(board).join(", ")}):`);
+    //prompt(`Choose a square (${emptySquares(board).join(", ")}):`);
+    prompt(`Choose a square (${joinOr(emptySquares(board))}):`);
     square = readline.question().trim();
     if (emptySquares(board).includes(square)) break;
 
@@ -57,13 +77,16 @@ function playerChoosesSquare(board) {
 
 function computerChoosesSquare(board) {
   let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
-
   let square = emptySquares(board)[randomIndex];
   board[square] = COMPUTER_MARKER;
 }
 
 function boardFull(board) {
   return emptySquares(board).length === 0;
+}
+
+function someoneWon(board) {
+  return detectWinner(board);
 }
 
 function detectWinner(board) {
@@ -99,15 +122,8 @@ function detectWinner(board) {
   return null;
 }
 
-function someoneWon(board) {
-  return !!detectWinner(board);
-}
-
-// At bottom of board
-
 while (true) {
   let board = initializeBoard();
-  //displayBoard(board);
 
   while (true) {
     displayBoard(board);
@@ -127,7 +143,7 @@ while (true) {
     prompt("It's a tie!");
   }
 
-  prompt("Play again? (y or n)");
+  prompt("Play again?");
   let answer = readline.question().toLowerCase()[0];
   if (answer !== "y") break;
 }
