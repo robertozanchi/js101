@@ -135,7 +135,7 @@ while (true) {
   console.log();
   prompt(`Player's final cards: ${showCards(playerCards, playerCards.length)}`);
   if (isBust(playerCards)) {
-    prompt(`You went bust! Your final score is ${total(playerCards)}.`);
+    prompt(`You went bust! Your final score is ${total(playerCards)}.\n`);
     break;
   } else {
     prompt(`You chose to stay. Your final score is ${total(playerCards)}.\n`);
