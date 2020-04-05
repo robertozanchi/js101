@@ -81,7 +81,6 @@ function isBust(cards) {
 }
 
 function diplayResults(playerCards, dealerCards) {
-  //console.clear();
   prompt(`Player's cards: ${showCards(playerCards, playerCards.length)}`);
   prompt(`Dealer's cards: ${showCards(dealerCards, dealerCards.length)}`);
 
