@@ -110,37 +110,33 @@ dealCards(playerCards, deck, 2);
 dealCards(dealerCards, deck, 2);
 
 while (true) {
-  while (true) {
-    console.clear();
+  console.clear();
 
-    prompt(`Player's cards: ${showCards(playerCards, playerCards.length)}`);
-    prompt(`Dealer's cards: ${showCards(dealerCards, 1)}`);
-    prompt(`Your current score is ${total(playerCards)}`);
+  prompt(`Player's cards: ${showCards(playerCards, playerCards.length)}`);
+  prompt(`Dealer's cards: ${showCards(dealerCards, 1)}`);
+  prompt(`Your current score is ${total(playerCards)}`);
 
-    prompt("Choose: hit or stay?");
-    let answer = readline.question().toLowerCase();
-    while (!VALID_ANSWERS.includes(answer)) {
-      prompt("That's not a valid choice.");
-      answer = readline.question().toLowerCase();
-    }
-
-    if (answer === "stay") {
-      break;
-    } else if (answer === "hit") {
-      dealCards(playerCards, deck, 1);
-      if (isBust(playerCards)) break;
-    }
+  prompt("Choose: hit or stay?");
+  let answer = readline.question().toLowerCase();
+  while (!VALID_ANSWERS.includes(answer)) {
+    prompt("That's not a valid choice.");
+    answer = readline.question().toLowerCase();
   }
 
-  console.log();
-  prompt(`Player's final cards: ${showCards(playerCards, playerCards.length)}`);
-  if (isBust(playerCards)) {
-    prompt(`You went bust! Your final score is ${total(playerCards)}.\n`);
+  if (answer === "stay") {
     break;
-  } else {
-    prompt(`You chose to stay. Your final score is ${total(playerCards)}.\n`);
-    break;
+  } else if (answer === "hit") {
+    dealCards(playerCards, deck, 1);
+    if (isBust(playerCards)) break;
   }
+}
+
+console.log();
+prompt(`Player's final cards: ${showCards(playerCards, playerCards.length)}`);
+if (isBust(playerCards)) {
+  prompt(`You went bust! Your final score is ${total(playerCards)}.\n`);
+} else {
+  prompt(`You chose to stay. Your final score is ${total(playerCards)}.\n`);
 }
 
 while (true) {
