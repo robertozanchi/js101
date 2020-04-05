@@ -97,7 +97,7 @@ function diplayResults(playerCards, dealerCards) {
       )}.`
     );
   } else if (total(playerCards) === total(dealerCards)) {
-    prompt(`Player and Dealer both scored ${total(playerCards)}`);
+    prompt(`Player and Dealer both scored ${total(playerCards)}.`);
   }
 }
 
