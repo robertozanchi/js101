@@ -17,7 +17,7 @@ const VALUES = [
   "A"
 ];
 
-function buildDeck(SUITS, VALUES) {
+function initializeDeck() {
   let deck = [];
   SUITS.forEach(suit => {
     VALUES.forEach(value => {
@@ -27,4 +27,23 @@ function buildDeck(SUITS, VALUES) {
   return deck;
 }
 
-console.log(buildDeck(SUITS, VALUES));
+console.log(initializeDeck());
+
+// Game execution
+
+// Initialize deck of card
+let deck = initializeDeck();
+
+// Deal cards to player and dealer
+
+// Player's turn
+while (true) {
+  // Visualize player's cards
+  // Choose hit or stay
+  //   If hit, pick a card, calculate value
+  //   if stay, break
+  if (isBust(playerCards)) break;
+}
+
+// Dealer's turn
+while (true) {}
