@@ -90,7 +90,6 @@ let dealerCards = [];
 dealCards(playerCards, deck, 2);
 dealCards(dealerCards, deck, 2);
 
-// Player's turn
 while (true) {
   while (true) {
     prompt(`Player's cards: ${showCards(playerCards, playerCards.length)}`);
