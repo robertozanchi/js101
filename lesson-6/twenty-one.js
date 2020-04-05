@@ -16,7 +16,7 @@ const VALUES = [
   "K",
   "A"
 ];
-VALID_ANSWERS = ["hit", "stay"];
+const VALID_ANSWERS = ["hit", "stay"];
 
 function prompt(msg) {
   console.log(`=> ${msg}`);
@@ -111,7 +111,6 @@ dealCards(playerCards, deck, 2);
 dealCards(dealerCards, deck, 2);
 
 while (true) {
-  // Player turn
   while (true) {
     console.clear();
 
@@ -146,14 +145,12 @@ while (true) {
 }
 
 while (true) {
-  // Dealer turn
   if (isBust(playerCards) || total(dealerCards) >= 17) {
     break;
   }
   dealCards(dealerCards, deck, 1);
 }
 
-// Display the results
 diplayResults(playerCards, dealerCards);
 
 prompt("Thanks for playing Twenty-One!");
