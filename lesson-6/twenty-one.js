@@ -34,8 +34,8 @@ function initializeDeck() {
 
 function shuffle(array) {
   for (let index = array.length - 1; index > 0; index--) {
-    let otherIndex = Math.floor(Math.random() * (index + 1)); // 0 to index
-    [array[index], array[otherIndex]] = [array[otherIndex], array[index]]; // swap elements
+    let otherIndex = Math.floor(Math.random() * (index + 1));
+    [array[index], array[otherIndex]] = [array[otherIndex], array[index]];
   }
 }
 
@@ -48,13 +48,12 @@ function dealCards(player, deck, times) {
 function showCards(cards, number) {
   let message = "";
   for (let idx = 0; idx < number; idx += 1) {
-    message += " [" + cards[idx] + "]";
+    message += "[" + cards[idx] + "] ";
   }
   return message;
 }
 
 function total(cards) {
-  // cards = [['H', '3'], ['S', 'Q'], ... ]
   let values = cards.map(card => card[1]);
 
   let sum = 0;
@@ -68,7 +67,6 @@ function total(cards) {
     }
   });
 
-  // correct for Aces
   values
     .filter(value => value === "A")
     .forEach(_ => {
@@ -82,6 +80,28 @@ function isBust(cards) {
   return total(cards) > 21;
 }
 
+function diplayResults(playerCards, dealerCards) {
+  //console.clear();
+  prompt(`Player's cards: ${showCards(playerCards, playerCards.length)}`);
+  prompt(`Dealer's cards: ${showCards(dealerCards, dealerCards.length)}`);
+
+  if (isBust(playerCards) || total(playerCards) < total(dealerCards)) {
+    prompt(
+      `Dealer won with ${total(dealerCards)}. Player scored ${total(
+        playerCards
+      )}.`
+    );
+  } else if (isBust(dealerCards) || total(dealerCards) < total(playerCards)) {
+    prompt(
+      `Player wins with ${total(playerCards)}. Dealer scored ${total(
+        dealerCards
+      )}.`
+    );
+  } else if (total(playerCards) === total(dealerCards)) {
+    prompt(`Player and Dealer both scored ${total(playerCards)}`);
+  }
+}
+
 let deck = initializeDeck();
 shuffle(deck);
 
@@ -91,7 +111,10 @@ dealCards(playerCards, deck, 2);
 dealCards(dealerCards, deck, 2);
 
 while (true) {
+  // Player turn
   while (true) {
+    console.clear();
+
     prompt(`Player's cards: ${showCards(playerCards, playerCards.length)}`);
     prompt(`Dealer's cards: ${showCards(dealerCards, 1)}`);
     prompt(`Your current score is ${total(playerCards)}`);
@@ -103,30 +126,34 @@ while (true) {
       answer = readline.question().toLowerCase();
     }
 
-    if (answer === "stay") break;
-
-    if (answer === "hit") {
+    if (answer === "stay") {
+      break;
+    } else if (answer === "hit") {
       dealCards(playerCards, deck, 1);
       if (isBust(playerCards)) break;
     }
   }
 
-  prompt(`Player's cards: ${showCards(playerCards, playerCards.length)}`);
-
+  console.log();
+  prompt(`Player's final cards: ${showCards(playerCards, playerCards.length)}`);
   if (isBust(playerCards)) {
-    prompt(`You're bust! Your final score is ${total(playerCards)}`);
+    prompt(`You're bust! Your final score is ${total(playerCards)}.`);
     break;
   } else {
-    prompt(`You chose to stay. Your final score is ${total(playerCards)}`);
+    prompt(`You chose to stay. Your final score is ${total(playerCards)}.\n`);
     break;
   }
 }
 
-// Dealer's turn
-// while (true) {
-//   // the dealer's break condition occurs at the top of the "hit or stay" loop.
-//   if (isBust(playerCards) || isBust(dealerCards)) break;
-// }
+while (true) {
+  // Dealer turn
+  if (isBust(playerCards) || total(dealerCards) >= 17) {
+    break;
+  }
+  dealCards(dealerCards, deck, 1);
+}
 
-//Displaying the Results
-// When you display the result, you also need to perform the calculation of who won.
+// Display the results
+diplayResults(playerCards, dealerCards);
+
+prompt("Thanks for playing Twenty-One!");
