@@ -176,7 +176,7 @@ function boardFull(board) {
 }
 
 function someoneWon(board) {
-  return detectWinner(board);
+  return !!detectWinner(board);
 }
 
 function detectWinner(board) {
